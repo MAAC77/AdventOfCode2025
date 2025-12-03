@@ -11,14 +11,16 @@ try {
 
 let sum = 0;
 for (const item of input) {
+  const val = [];
   const arr = item.split("").map(Number);
-  let max = 0;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (+`${arr[i]}${arr[j]}` > max) max = +`${arr[i]}${arr[j]}`;
-    }
+  let piv = 0;
+  while (val.length < 2) {
+    const chunk = [...arr.slice(piv, arr.length - (1 - val.length))];
+    const max = Math.max(...chunk);
+    val.push(max);
+    piv = chunk.indexOf(max) + piv + 1;
   }
-  sum += max;
+  sum += +val.join("");
 }
 console.log("RES1:", sum);
 
